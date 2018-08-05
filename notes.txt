@@ -1,0 +1,5 @@
+Str - count, find, replace, len, isupper, islower
+list - negative index, append, insert, extend, remove, pop, reverse, sort, sorted, sort(reverse=True),
+        index, 
+
+number list - min, max, sum
