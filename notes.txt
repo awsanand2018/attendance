@@ -1,5 +1,120 @@
 Str - count, find, replace, len, isupper, islower
+
 list - negative index, append, insert, extend, remove, pop, reverse, sort, sorted, sort(reverse=True),
         index, 
 
 number list - min, max, sum
+
+functions - An executed function is equal to the return value.  
+            When we simply call a function that returns some value,we won't be able to see output.
+            To see the output of a function that returns some value, we have to print the function
+            calling statement, such as "print(test())".
+            When an executed function returns some value,we can use different built-in methods to
+            work with the returned data. For example, "print(max(test()))".
+          - Passing default values to function arguments and overriding the default arg values
+          - Positional and Keyword arguments (*arg,**kwarg)
+            *args - Positional argumnts are the args without any default values. so when we invoke 
+            the function, we must pass values. *arg allows us to pass any number of args/values to
+            our function.
+            **kwargs - Keyword arguments are the ones with default values. We can pass any many
+            keyword arguments we want to our function.
+            It's not mandatory to have *arg,**kwarg for arg names. It can be anything like,
+            *student,**marks. The prfix * or ** is what matters.
+
+            Example: 1
+            def test(*args,**kwargs):
+                print("Here the positional arguments are: ",args)
+                print("Here the keyword arguments are: ", kwargs)
+            test('Anand',28,'Chennai')
+
+            O/P:
+            Here the positional arguments are:  Anand 28 Chennai
+            Here the keyword arguments are:
+
+            Example: 2
+            
+            def test(*args,**kwargs):
+                print("Here the positional arguments are: ",args)
+                print("Here the keyword arguments are: ", kwargs)
+            test('Anand',28,'Chennai',Maths=100, Tamil=100)
+
+            O/P:
+            Here the positional arguments are:  ('Anand', 28, 'Chennai')
+            Here the keyword arguments are:  {'Maths': 100, 'Tamil': 100}
+
+
+          - We can see the positional arguments returned a tuple as output and keyword arguments 
+            returned a dictionary as output.
+
+          - One important thing to remeber is that we must complete passing the positional args first
+            and then keyword args. Can't provide a mixture of arg values such as,
+            test('Anand',28,'Chennai',Maths=100, Tamil=100,'TN')
+            It will throw an error: "positional argument follows keyword argument"
+
+          - When we pass variables as arguments in fucntion invoking for positional and keyword args, 
+            we must be careful.
+            Wrong way:
+            def test(*stu,**details):
+                print("Here the positional arguments are: ",stu)
+                print("Here the keyword arguments are: ", details)
+                student=['Anand',28,'Chennai']
+                det= {'Maths': 100, 'Tamil': 100}
+            test(student,det)
+
+            O/P:
+            Here the positional arguments are:  (['Anand', 28, 'Chennai'], {'Maths': 100, 'Tamil': 100})
+            Here the keyword arguments are:  {}
+
+            We can see that the function took both variables as positional arguments.
+
+            Right way:
+            test(*student,**det)
+
+            O/P:
+            Here the positional arguments are:  ('Anand', 28, 'Chennai')
+            Here the keyword arguments are:  {'Maths': 100, 'Tamil': 100}
+
+            
+Importing modules - When we import an module, we can import the entire module by specifying
+                    "import module_name" , which will allow us to access every functions, variables
+                    and statements from that module.
+                    If we want to explicitly access only functions or variables within that module,
+                    we can specify that as "from module_name import function" or
+                    "from module_name import function as f,variable as v" with nicknames or
+                    we can use "from module_name import *" which is similar to "import module_name"
+                  - Whenever we import a module, python finds the module in the background by
+                    going through a list of directories/paths, starting with our cwd. To see what
+                    paths it checks, we can import the sys module and use sys.path to list out the
+                    paths python searches for the module.
+                  - If the module is not found in any of the default directories, it will throw a 
+                    "ModuleNotFound" error. In this case we can explicitly define the path of our
+                    module using the sys module and "sys.path.append('C:/Users/Admin/Desktop')" before we import
+                    the module.
+                  - If we have a different dir/path that has our modules, we can add it to the
+                    python's default paths by adding an environment variable in settings.
+                    Ex - PYTHONPATH - C:/Users/Admin/Desktop/SearchModule
+                    Now,everytime we import a module, python will look for that module in the newly
+                    added default path, along with other paths.
+
+
+Random module - random.random() - It will output a random floating number between 0 to 1.
+                random.randint(a,b) - It will output a random integer number between a and b, 
+                                      including a and b.
+                random.choice(a) - It takes a list as an argument and output random values from
+                                   that list.
+
+Math module - math.radians(x) - Converts angle x from degrees to radians
+              math.sin(), math.cos(), math.tan()
+
+Datetime module - datetime.datetime(2018,8,2) - 2018-08-02 00:00:00
+                  datetime.datetime.today() - 2018-08-11 16:53:46.830487
+                  datetime.datetime.now() - 2018-08-11 16:54:58.071950
+
+Calendar module - calendar.isleap(2018) - False
+                  calendar.isleap(2020) - True
+
+OS module - os.getcwd() - To return the current working directory
+          - os.path.isdir('git') - To check whether there is a directory with the name git
+          - os.path.isfile('test.py') - To check if there is a file with the name test.py
+          - os.__file__   - This will return the file location of OS module - os.py
+          - random.__file__  - Same as above, but it will return the path of random module
