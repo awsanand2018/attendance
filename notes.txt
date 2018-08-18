@@ -221,3 +221,152 @@ OS module - os.getcwd() - To return the current working directory
             O/P: ('Desktop/SearchModule/test', '.txt')
 
           - dir(os.path) - To see all modules that are available for os.path
+          
+string.zfill(x) - This method is used to add padding zeros to the left. x refers to the number of 
+                  digits we want.
+
+                  test="8"
+                  print(test.zfill(2))
+                  print(test.zfill(5))
+
+                  O/P:
+                  08
+                  00008
+
+                  test="test"
+                  print(test.zfill(2))
+                  print(test.zfill(5))
+                  print(test.zfill(10))
+
+                  O/P:
+                  test
+                  0test
+                  000000test
+
+
+CSV Modle - csv.reader(csvfile) - This reader method has a dialect in the background which is expecting 
+            comma seperated values in the data.
+            We have to iterate over the reader variable to see the output, as shown below.
+
+            import csv
+            with open("sample.csv") as csvfile:
+                csv_reader=csv.reader(csvfile)
+                for i in csv_reader:
+                    print(i)
+
+            O/P:
+            ['first_name', 'last_name', 'email']
+            ['Anand', 'Kumar', 'anandkumarg890@gmail.com']
+            ['Shiva', 'Kishore', 'shiva@gmail.com']
+
+            We can see the ouput is in the list format with the comma seperated values.
+
+            To see only the emails, we can use indexing.
+
+            import csv
+            with open("sample.csv") as csvfile:
+                csv_reader=csv.reader(csvfile)
+                for i in csv_reader:
+                    print(i[2])
+
+            O/P:
+            email
+            anandkumarg890@gmail.com
+            shiva@gmail.com
+
+      next - is a keyword/generator which can be used to skip over values and iterables.
+
+             import csv
+             with open("sample.csv") as csvfile:
+                  csv_reader=csv.reader(csvfile)
+                  next(csv_reader)
+                  for i in csv_reader:
+                      print(i)
+            
+              O/P:
+              ['Anand', 'Kumar', 'anandkumarg890@gmail.com']
+              ['Shiva', 'Kishore', 'shiva@gmail.com']
+            
+            We can see it skipped the inital header list, since we used the next function.
+      
+      delimiters - When we read or write from a csv file, we can specify how we want our data to be parsed
+                   using delimiters.
+
+                   with open("sample1.csv") as rfile:
+                      csv_reader=csv.reader(rfile,delimiter='-')
+                      for l in csv_reader:
+                          print(l)
+                   
+                   Same way, delimeters can be used when we write/append a csv file too. The following Codes
+                   shows how we can do that, along with how we can copy data from one csv file to another.
+
+                   with open("sample.csv") as rfile:
+                      csv_reader=csv.reader(rfile)
+                      with open("sample1.csv","w",newline='') as wfile:
+                          csv_writer=csv.writer(wfile,delimiter='-')
+                          for lines in csv_reader:
+                              csv_writer.writerow(lines)
+
+      csv.DictReader(csv_file) - This method will take a csv file as an argument and return the output
+                                in dictionary format. It won't output the header values, as they are
+                                considered rto be the keys for the dictionary values.
+
+                                import csv
+                                with open("sample.csv") as rfile:
+                                    csv_reader=csv.DictReader(rfile)
+                                    for l in csv_reader:
+                                        print(l)
+                                
+                                O/P:
+                                OrderedDict([('first_name', 'Anand'), ('last_name', 'Kumar'), ('email', 'anandkumarg890@gmail.com')])
+                                OrderedDict([('first_name', 'Shiva'), ('last_name', 'Kishore'), ('email', 'shiva@gmail.com')])
+
+                                To retrieve data with key names,
+
+                                import csv
+                                with open("sample.csv") as rfile:
+                                    csv_reader=csv.DictReader(rfile)
+                                    for l in csv_reader:
+                                        print(l['email'])
+
+                                O/P:
+                                anandkumarg890@gmail.com
+                                shiva@gmail.com
+
+
+                                This is better than regular csv.reader() because we don't always know
+                                the indexing of our values. With csv.DictReader() or writer, we can use
+                                keys to get values.
+
+                                To copy one csv file to another using dictionary method in csv,
+
+                                import csv
+                                with open("sample.csv") as rf:
+                                    csv_reader=csv.DictReader(rf)
+                                    with open("sample1.csv","w") as wf:
+                                        csv_header=['fname', 'lname','email']
+                                        csv_writer=csv.DictWriter(wf,fieldnames=csv_header,delimiter='-')
+                                        csv_writer.writeheader()
+                                        for lines in csv_reader:
+                                            csv_writer.writerow(lines)
+
+When we copy data from one csv file to another csv file, we can decide what fields we want to copy.
+We can remove/eliminate the fields we don't want to write to our new csv file.
+
+import csv
+with open("sample.csv") as rf:
+    csv_reader=csv.DictReader(rf)
+    with open("sample1.csv","w") as wf:
+        csv_header=['fname', 'lname']
+        csv_writer=csv.DictWriter(wf,fieldnames=csv_header,delimiter=',')
+        csv_writer.writeheader()
+        for lines in csv_reader:
+            del lines['email']
+            csv_writer.writerow(lines)
+
+The above code will write only first and last names to the new csv file. It won't copy email as we
+deleted email during each iteration.
+
+
+
+
